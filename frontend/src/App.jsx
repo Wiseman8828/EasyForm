@@ -9,6 +9,8 @@ import PublicForm from "./components/PublicForms/PublicForms";
 import HomePage from "./components/Home/HomePage";
 import CanActivateRoute from "./components/Auth/CanActivateRoute"
 import { UserProvider } from "./contexts/userContext";
+import CreateForm from "./components/Forms/CreateForm"
+import ViewForm from "./components/Forms/ViewForm";
 
 function App() {
     return (
@@ -32,6 +34,30 @@ function App() {
                         element={
                             <CanActivateRoute>
                                 <FormsPage />
+                            </CanActivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/forms/create"
+                        element={
+                            <CanActivateRoute>
+                                <CreateForm />
+                            </CanActivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/forms/create/:formId"
+                        element={
+                            <CanActivateRoute>
+                                <CreateForm />
+                            </CanActivateRoute>
+                        }
+                    />
+                    <Route
+                        path="/forms/view/:formId"
+                        element={
+                            <CanActivateRoute>
+                                <ViewForm />
                             </CanActivateRoute>
                         }
                     />

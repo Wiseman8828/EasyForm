@@ -2,12 +2,17 @@ const { DataTypes } = require('sequelize');
 const { sequelize } = require('../database/mysql');
 
 const Field = sequelize.define('Field', {
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+    },
     name: {
         type: DataTypes.STRING,
         allowNull: false,
     },
     type: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM("String", "Number", "File", "Text"),
         allowNull: false,
     },
     description: {
@@ -15,7 +20,7 @@ const Field = sequelize.define('Field', {
         allowNull: true,
     },
     createdBy: {
-        type: DataTypes.INTEGER,
+        type:  DataTypes.UUID,
         allowNull: false,
     }
 },{

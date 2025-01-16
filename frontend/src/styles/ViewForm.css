@@ -1,0 +1,56 @@
+.view-form-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.form-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.fields-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.field-card {
+    display: flex;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.field-icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.field-details {
+    text-align: left;
+}
+
+.field-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.field-type {
+    font-size: 14px;
+    color: #666;
+}
+
+.loading-text, .error-text, .no-fields-text {
+    font-size: 16px;
+    color: #777;
+    margin-top: 20px;
+}

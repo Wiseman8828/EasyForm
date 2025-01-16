@@ -36,3 +36,57 @@ export const fetchFieldsWithPagination = async (page, limit) => {
     }
     return response.json();
 };
+
+export const createForm = async (formdData) => {
+    const response = await fetch(`${API_BASE_URL}/form`, {
+        method: "POST",
+        headers: getAuthHeaders(),
+        body: JSON.stringify(formdData),
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to create field");
+    }
+
+    return response.json();
+};
+
+export const updateForm = async (formId, formdData) => {
+    const response = await fetch(`${API_BASE_URL}/form/${formId}`, {
+        method: "PUT",
+        headers: getAuthHeaders(),
+        body: JSON.stringify(formdData),
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to create field");
+    }
+
+    return response.json();
+};
+
+export const getFormDetails = async (formID) => {
+    const response = await fetch(`${API_BASE_URL}/form/${formID}`, {
+        method: "get",
+        headers: getAuthHeaders()
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to create field");
+    }
+
+    return response.json();
+};
+
+export const fetchFormsWithPagination = async (page, limit) => {
+    const response = await fetch(`${API_BASE_URL}/form?page=${page}&limit=${limit}`, {
+        method: "get",
+        headers: getAuthHeaders()
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to create field");
+    }
+
+    return response.json();
+};
