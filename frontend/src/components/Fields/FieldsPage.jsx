@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { createField } from "../../services/formService";
 import FieldList from "./FieldList";
 import "../../styles/FieldPage.css";
+import { useNotificationContext } from "../../contexts/notificationContext";
 
 const FieldsPage = () => {
     const [name, setName] = useState("");
@@ -10,13 +11,17 @@ const FieldsPage = () => {
     const [error, setError] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [refreshKey, setRefreshKey] = useState(0);
+    const { handleNotification } = useNotificationContext();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
 
         if (!name.trim()) {
-            setError("Field name is required.");
+            handleNotification({
+                details: "Field name is required.",
+                type: 'error'
+            })
             return;
         }
 
@@ -27,6 +32,10 @@ const FieldsPage = () => {
             setDescription("")
             setIsModalOpen(false);
             setRefreshKey((prevKey) => prevKey + 1);
+            handleNotification({
+                details: "Field created successfully",
+                type: 'success'
+            })
         } catch (error) {
             console.error("Error creating field:", error);
             setError("An error occurred while creating the field. Please try again.");

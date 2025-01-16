@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { fetchFormsWithPagination } from '../../services/formService';
 import { FaEdit, FaEye, FaCopy, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import '../../styles/FormPage.css';
+import { useNotificationContext } from "../../contexts/notificationContext";
 
 const FormPage = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const FormPage = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
+  const { handleNotification } = useNotificationContext();
 
   const fetchForms = async (currentPage) => {
     setLoading(true);
@@ -20,7 +22,10 @@ const FormPage = () => {
       setPage(response.page);
       setTotalPages(response.pages);
     } catch (error) {
-      console.error('Error fetching forms:', error.message);
+      handleNotification({
+        details: `Error while fetching form: ${error.message}`,
+        type: 'error'
+      })
     } finally {
       setLoading(false);
     }
@@ -51,6 +56,10 @@ const FormPage = () => {
   const copyFormLink = (id) => {
     const link = `${window.location.origin}/public-form/${id}`;
     navigator.clipboard.writeText(link);
+    handleNotification({
+      details: `Form link copied!`,
+      type: 'success'
+  })
   };
 
   return (

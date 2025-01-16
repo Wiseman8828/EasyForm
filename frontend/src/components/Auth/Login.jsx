@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import "../../styles/Login.css";
 import { saveToken, login } from '../../services/authService';
 import { useUser } from "../../contexts/userContext"
+import { useNotificationContext } from "../../contexts/notificationContext";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const { setLoginData } = useUser();
+    const { handleNotification } = useNotificationContext();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -17,8 +19,15 @@ const Login = () => {
             saveToken(response.token);
             setLoginData(response)
             navigate("/fields");
+            handleNotification({
+                details: `Login successful!`,
+                type: 'success'
+            })
         } catch (error) {
-            console.error("Login failed", error);
+            handleNotification({
+                details: `Login failed", ${error}`,
+                type: 'error'
+            })
         }
     };
 

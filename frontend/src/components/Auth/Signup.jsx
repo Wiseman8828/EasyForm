@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "../../styles/Signup.css";
 import { signup } from '../../services/authService';
+import { useNotificationContext } from "../../contexts/notificationContext";
+
 
 const Signup = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const { handleNotification } = useNotificationContext();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,7 +18,10 @@ const Signup = () => {
             await signup({ name, email, password });
             navigate("/login");
         } catch (error) {
-            console.error("Signup failed", error);
+            handleNotification({
+                details: `Unable to register, ${error}`,
+                type: 'error'
+            })
         }
     };
 

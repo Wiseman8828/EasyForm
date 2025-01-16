@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import '../../styles/CreateForm.css'
 import { getFormDetails, fetchFieldsWithPagination, createForm, updateForm } from "../../services/formService";
 import { useNavigate } from 'react-router-dom';
+import { useNotificationContext } from "../../contexts/notificationContext";
 
 const CreateForm = () => {
     const { formId } = useParams();
@@ -11,6 +12,7 @@ const CreateForm = () => {
     const [formName, setFormName] = useState('');
     const [fields, setFields] = useState([]);
     const [availableFields, setAvailableFields] = useState([]);
+    const { handleNotification } = useNotificationContext();
 
     useEffect(() => {
         fetchFields();
@@ -26,7 +28,10 @@ const CreateForm = () => {
             setFormName(response.name);
             setFields(response.fields);
         } catch (error) {
-            console.error("Error fetching form:", error);
+            handleNotification({
+                details: `Error while fetching form: ${error.message}`,
+                type: 'error'
+            })
         } finally {
             setLoading(false);
         }
@@ -37,7 +42,10 @@ const CreateForm = () => {
             const response = await fetchFieldsWithPagination(1, 10);
             setAvailableFields(response.fields);
         } catch (error) {
-            console.error("Error fetching fields:", error);
+            handleNotification({
+                details: `Error while fetching fields: ${error.message}`,
+                type: 'error'
+            })
         }
     };
 
@@ -60,9 +68,16 @@ const CreateForm = () => {
             } else {
                 response = await createForm(formData)
             }
+            handleNotification({
+                details: `Form submitted successfully!`,
+                type: 'success'
+            })
             navigate('/forms')
         } catch (error) {
-            console.error('Error while submitting form Data', error);
+            handleNotification({
+                details: `Error while submitting form Data: ${error.message}`,
+                type: 'error'
+            })
         }
     };
 

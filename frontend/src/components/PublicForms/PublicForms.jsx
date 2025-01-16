@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../../styles/PublicForm.css";
 import { getFormDetails, submitForm } from "../../services/formService";
+import { useNotificationContext } from "../../contexts/notificationContext";
 
 const PublicForms = () => {
   const { formId } = useParams();
@@ -9,6 +10,7 @@ const PublicForms = () => {
   const [formDetails, setFormDetails] = useState(null);
   const [formData, setFormData] = useState({});
   const [fileData, setFileData] = useState({});
+  const { handleNotification } = useNotificationContext();
 
   useEffect(() => {
     const fetchFormDetails = async () => {
@@ -16,7 +18,10 @@ const PublicForms = () => {
         const details = await getFormDetails(formId);
         setFormDetails(details);
       } catch (error) {
-        console.error("Error fetching form details:", error);
+        handleNotification({
+          details: `Error while fetching form details: ${error.message}`,
+          type: 'error'
+        })
       }
     };
 
@@ -63,10 +68,15 @@ const PublicForms = () => {
     try {
       await submitForm(formId, formDataToSend);
       navigate('/')
-      alert("Form submitted successfully!");
+      handleNotification({
+        details: `Form submitted successfully!`,
+        type: 'success'
+      })
     } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("Failed to submit form. Please try again.");
+      handleNotification({
+        details: `Error submitting form: ${error.message}`,
+        type: 'error'
+      })
     }
   };
 
@@ -104,7 +114,7 @@ const PublicForms = () => {
             )}
           </div>
         ))}
-        <button type="submit">Submit</button>
+        <button className="submit-btn" type="submit">Submit</button>
       </form>
     </div>
   );
