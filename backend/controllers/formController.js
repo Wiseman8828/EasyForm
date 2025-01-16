@@ -64,7 +64,7 @@ const fetchFormsWithPagination = async (req, res) => {
     try {
         const { page = 1, limit = 10 } = req.query;
         const offset = (page - 1) * limit;
-        console.log('limit', limit)
+
         const forms = await Form.findAndCountAll({
             where: { userId: req.user.id },
             limit: parseInt(limit),

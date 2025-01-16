@@ -17,8 +17,16 @@ const jwtSecret  = () => {
 }
 
 
+const mongoDbCredentials  = () => {
+    return {
+        "hostURL":  process.env.host_URL || "mongodb+srv://ashwinidev260:fTaEMhrM08k9Oia3@cluster0.ahs4k.mongodb.net/formCraft?retryWrites=true&w=majority&appName=Cluster0",
+        "database": process.env.DB_NAME || "formCraft",
+    } 
+}
+
 
 module.exports = {
     dbCredentials,
-    jwtSecret
+    jwtSecret,
+    mongoDbCredentials
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchFieldsWithPagination } from "../../services/formService";
 import "../../styles/FieldList.css";
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 const FieldList = () => {
     const [fields, setFields] = useState([]);
@@ -70,7 +71,7 @@ const FieldList = () => {
                             disabled={page === 1}
                             className="pagination-button"
                         >
-                            Previous
+                           <FaArrowLeft />
                         </button>
                         <span className="pagination-info">
                             Page {page} of {totalPages}
@@ -80,7 +81,7 @@ const FieldList = () => {
                             disabled={page === totalPages}
                             className="pagination-button"
                         >
-                            Next
+                           <FaArrowRight />
                         </button>
                     </div>
                 </>

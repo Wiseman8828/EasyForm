@@ -60,6 +60,7 @@ h2 {
 
 .pagination-button {
     background-color: #007bff;
+    width: 45px;
     color: white;
     border: none;
     padding: 8px 16px;

@@ -4,6 +4,7 @@ const { connectSqlDB } = require('./database/mysql');
 const authRoutes = require('./routes/auth');
 const fieldRoutes = require('./routes/fields')
 const formRoutes = require('./routes/form')
+const formSubmitRoutes = require('./routes/formSubmit')
 const cors = require('cors');
 
 
@@ -18,6 +19,8 @@ app.use(cors({ origin: 'http://localhost:5173' }));
 app.use('/api/auth', authRoutes);
 app.use('/api/fields', fieldRoutes);
 app.use('/api/form', formRoutes);
+app.use('/api/submitForm', formSubmitRoutes);
+
 
 app.use((req, res, next) => {
     const error = new Error(`Not Found - ${req.originalUrl}`);

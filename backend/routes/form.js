@@ -10,7 +10,7 @@ router.put('/:formId', protect, updateForm)
 
 router.get('/', protect, fetchFormsWithPagination)
 
-router.get('/:formId', protect, getFormDetails);
+router.get('/:formId', getFormDetails);
 
 
 module.exports = router;
