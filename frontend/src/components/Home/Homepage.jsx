@@ -1,20 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "../../styles/HomePage.css";
-// import { getForms } from "../../utils/api";
-import { isAuthenticated } from "../../services/authService";
+import { useUser } from "../../contexts/userContext"; 
 
 const HomePage = () => {
-    const [forms, setForms] = useState([]);
+    const { user } = useUser();  
 
-    useEffect(() => {
-        if (isAuthenticated()) {
-            // getForms()
-            //     .then((data) => setForms(data))
-            //     .catch((err) => console.error("Error fetching forms: ", err));
-        }
-    }, []);
-
-    if (!isAuthenticated()) {
+    if (!user) {
         return (
             <div className="home-container">
                 <h1>Welcome to the Form Builder App</h1>
@@ -24,31 +15,15 @@ const HomePage = () => {
                 </p>
             </div>
         );
+    } else {
+        return (
+            <div className="home-container">
+                <h1>Hello, {user?.name}! 👋</h1>
+                <p>Welcome to your personalized dashboard. Here, you can create custom fields, build forms, and manage submissions effortlessly.</p>
+                <p>Get started by adding new form fields or managing existing forms by navigating to the dashboard.</p>
+            </div>
+        )
     }
-
-    return (
-        <div className="forms-container">
-            <h1>Your Forms</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Form Name</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {forms.map((form) => (
-                        <tr key={form.id}>
-                            <td>{form.name}</td>
-                            <td>
-                                <button onClick={() => window.location.href = `/forms/edit/${form.id}`}>Edit</button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );
 };
 
 export default HomePage;

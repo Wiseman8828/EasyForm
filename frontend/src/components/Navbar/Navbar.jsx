@@ -2,13 +2,16 @@ import React from 'react';
 import "../../styles/Navbar.css";
 import { Link, useNavigate } from 'react-router-dom';
 import { clearToken } from '../../services/authService';
+import { isAuthenticated } from "../../services/authService";
+import { useUser } from '../../contexts/userContext';
 
 const Navbar = () => {
     const navigate = useNavigate();
-
+    const { removeLoginData } = useUser();
     const handleLogout = () => {
         clearToken();
-        navigate("/login");
+        removeLoginData()
+        navigate("/");
     };
 
     return (
@@ -18,9 +21,11 @@ const Navbar = () => {
                 <Link to="/fields">Fields</Link>
                 <Link to="/forms">Forms</Link>
             </div>
-            <div>
-                <button onClick={handleLogout}>Logout</button>
-            </div>
+            {isAuthenticated() ? (
+                <div>
+                    <button onClick={handleLogout}>Logout</button>
+                </div>
+            ) : null}
         </nav>
     );
 };

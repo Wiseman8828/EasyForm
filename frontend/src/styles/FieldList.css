@@ -1,0 +1,85 @@
+
+.field-list-container {
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-family: 'Arial', sans-serif;
+}
+
+h2 {
+    text-align: left;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.loading {
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+}
+
+.field-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.field-table th, .field-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.field-table th {
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+}
+
+.field-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.field-table tbody tr:hover {
+    background-color: #e9f3ff;
+}
+
+.no-fields {
+    text-align: center;
+    color: #777;
+    font-style: italic;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.pagination-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.pagination-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination-button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.pagination-info {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}

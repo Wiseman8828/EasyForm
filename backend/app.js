@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const { connectSqlDB } = require('./database/mysql');
 const authRoutes = require('./routes/auth');
+const fieldRoutes = require('./routes/fields')
 const cors = require('cors');
 
 
@@ -12,7 +13,9 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({ origin: 'http://localhost:5173' }));
+
 app.use('/api/auth', authRoutes);
+app.use('/api/fields', fieldRoutes);
 
 app.use((req, res, next) => {
     const error = new Error(`Not Found - ${req.originalUrl}`);
